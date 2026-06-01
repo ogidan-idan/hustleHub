@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { secondary, segun } from "./button";
+import { secondary} from "./button";
 
 
 const APP_GENERAL = StyleSheet.create({
@@ -56,6 +56,5 @@ const HomeScreenStyles = StyleSheet.create({
 
 const button = {
     secondary: secondary,
-    segun: segun
 }
 export { HomeScreenStyles, APP_GENERAL, button };
