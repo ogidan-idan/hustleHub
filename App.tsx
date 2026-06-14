@@ -14,7 +14,9 @@ export function AppLayout(props: PropsWithChildren) {
   return <SafeAreaView style={{ flex: 1 }}>
     {props.children}
     <StatusBar style={"auto"} />
-    <TabBar/>
+    <View style={{marginTop: "auto"}}>
+      <TabBar/>
+    </View>
   </SafeAreaView>
 }
 

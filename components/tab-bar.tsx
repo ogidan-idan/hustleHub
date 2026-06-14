@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react'
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { BriefcaseIcon, CheckSquareIcon, HomeIcon, ShoppingBagIcon, UserIcon } from "lucide-react-native";
+import { COLORS } from '../constants/colors';
 
 type Tab = "home" | "tasks" | "marketplace" | "hustle" | "profile";
 
@@ -32,7 +33,7 @@ export const TabBar = () => {
 const Tab = (props: any) => {
     return (
         <TouchableOpacity onPress={props.onPress} style={props.active?TabBarStyle.tabContainerActive:TabBarStyle.tabContainer}>
-            <props.icon color={props.active?"white":"#99a1af"} size={18} />
+            <props.icon color={props.active?COLORS.white:COLORS.grey} size={18} />
             <Text style={props.active?TabBarStyle.tabTextActive:TabBarStyle.tabText}>{props.title}</Text>
         </TouchableOpacity>
     );
@@ -41,7 +42,7 @@ const Tab = (props: any) => {
 
 const TabBarStyle = StyleSheet.create({
     tabContainer: { alignItems: "center", gap: 2, paddingHorizontal: 18, paddingVertical: 10, borderRadius: 10 },
-    tabContainerActive: { alignItems: "center", gap: 2, paddingHorizontal: 18, paddingVertical: 10, borderRadius: 10, backgroundColor: "blue" },
-    tabText: { color: "#99a1af", fontSize: 12 },
-    tabTextActive: { color: "white", fontSize: 12 },
+    tabContainerActive: { alignItems: "center", gap: 2, paddingHorizontal: 18, paddingVertical: 10, borderRadius: 10, backgroundColor: COLORS.primary },
+    tabText: { color: COLORS.grey, fontSize: 12},
+    tabTextActive: { color: COLORS.white, fontSize: 12 },
 });

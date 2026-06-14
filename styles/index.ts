@@ -16,7 +16,7 @@ const APP_GENERAL = StyleSheet.create({
     },
 });
 
-const HomeScreenStyles = StyleSheet.create({
+const WelcomeScreenStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
@@ -57,4 +57,4 @@ const HomeScreenStyles = StyleSheet.create({
 const button = {
     secondary: secondary,
 }
-export { HomeScreenStyles, APP_GENERAL, button };
+export { WelcomeScreenStyles, APP_GENERAL, button };

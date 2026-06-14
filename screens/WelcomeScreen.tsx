@@ -1,11 +1,12 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { button, HomeScreenStyles } from '../styles';
+import { button, WelcomeScreenStyles } from '../styles';
 import { AppLogo } from '../components/logo';
 import FeatureList from '../components/feature-item';
 import { CheckCircle, ShoppingBag, TrendingUp } from 'lucide-react-native';
 import { PageProps } from '../App';
+import { COLORS } from '../constants/colors';
 
 const featuresList = [
     {
@@ -27,15 +28,15 @@ const featuresList = [
 
 const WelcomeScreen = ({ navigate }: PageProps) => {
     return (
-        <View style={HomeScreenStyles.container}>
+        <View style={WelcomeScreenStyles.container}>
             <LinearGradient
-                colors={["#2b7fff", "#155dfc"]}
-                style={HomeScreenStyles.background} />
+                colors={[COLORS.primary, COLORS.primary_dark]}
+                style={WelcomeScreenStyles.background} />
             <AppLogo />
-            <View style={HomeScreenStyles.headerSection}>
-                <Text style={HomeScreenStyles.heading}>Welcome to</Text>
-                <Text style={HomeScreenStyles.heading}>HustleHub</Text>
-                <Text style={HomeScreenStyles.subText}>Your all-in-one student productivity platform</Text>
+            <View style={WelcomeScreenStyles.headerSection}>
+                <Text style={WelcomeScreenStyles.heading}>Welcome to</Text>
+                <Text style={WelcomeScreenStyles.heading}>HustleHub</Text>
+                <Text style={WelcomeScreenStyles.subText}>Your all-in-one student productivity platform</Text>
             </View>
             <View style={{ width: "85%", marginVertical: 20 }}>
                 <FlatList
