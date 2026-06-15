@@ -33,7 +33,7 @@ const recentActivity = [
   { type: "hustle", title: "Delivered Food Order", time: "Yesterday", amount: "₦1,500", id: 4 }
 ];
 
-const HomeScreen = (props: PageProps) => {
+const HomeScreen = () => {
   return (
     <AppLayout>
       <ScrollView contentContainerStyle={{ gap: 30, backgroundColor: "#efefef" }}>

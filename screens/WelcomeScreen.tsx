@@ -7,6 +7,7 @@ import FeatureList from '../components/feature-item';
 import { CheckCircle, ShoppingBag, TrendingUp } from 'lucide-react-native';
 import { PageProps } from '../App';
 import { COLORS } from '../constants/colors';
+import { useNavigation } from '../contexts/navigation';
 
 const featuresList = [
     {
@@ -26,7 +27,8 @@ const featuresList = [
     }
 ];
 
-const WelcomeScreen = ({ navigate }: PageProps) => {
+const WelcomeScreen = () => {
+    const {handleNavigate} = useNavigation();
     return (
         <View style={WelcomeScreenStyles.container}>
             <LinearGradient
@@ -44,7 +46,7 @@ const WelcomeScreen = ({ navigate }: PageProps) => {
                     renderItem={(props) => <FeatureList feature={props.item} />}
                     data={featuresList} />
             </View>
-            <TouchableOpacity style={button.secondary.container} onPress={navigate('home')}>
+            <TouchableOpacity style={button.secondary.container} onPress={handleNavigate('home')}>
                 <Text style={button.secondary.text}>Get Started</Text>
             </TouchableOpacity>
         </View>
