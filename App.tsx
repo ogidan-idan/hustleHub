@@ -10,14 +10,20 @@ export type PageProps = {
   navigate: (page: string) => () => void;
 }
 
-export function AppLayout(props: PropsWithChildren) {
-  return <SafeAreaView style={{ flex: 1 }}>
+type AppLayoutProps = PropsWithChildren & {
+  withoutTab?: boolean;
+};
+
+export function AppLayout(props: AppLayoutProps) {
+  return (<SafeAreaView style={{ flex: 1 }}>
     {props.children}
     <StatusBar style={"auto"} />
-    <View style={{marginTop: "auto"}}>
-      <TabBar/>
-    </View>
-  </SafeAreaView>
+    {props.withoutTab == true ?
+      <></>
+      : <View style={{ marginTop: "auto" }}>
+        <TabBar />
+      </View>}
+  </SafeAreaView>);
 }
 
 export default function App() {
@@ -31,7 +37,7 @@ export default function App() {
     case "home":
       return <HomeScreen navigate={handleNavigate} />;
     default:
-      return <AppLayout>
+      return <AppLayout withoutTab={true}>
         <Text>404 - Not Found</Text>
         <Button title="Go Home" onPress={() => setCurrentPage("welcome")} />
       </AppLayout>;

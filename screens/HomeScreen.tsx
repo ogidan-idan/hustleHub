@@ -1,7 +1,7 @@
 import { FlatList, Pressable, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { AppLayout, PageProps } from '../App';
 import { LinearGradient } from 'expo-linear-gradient';
-import { BriefcaseIcon, CheckSquareIcon, ClockIcon, PackageIcon, PlusIcon, ShoppingBagIcon, TimerIcon, TrendingUp } from 'lucide-react-native';
+import { BriefcaseIcon, CheckSquareIcon, ClockIcon, DollarSignIcon, PackageIcon, PlusIcon, ShoppingBagIcon, TimerIcon, TrendingUp } from 'lucide-react-native';
 import { WelcomeScreenStyles } from '../styles';
 import { COLORS } from '../constants/colors';
 
@@ -30,13 +30,13 @@ const recentActivity = [
   { type: "task", title: "Complete Chemistry Assignment", time: "2h ago", status: "completed", id: 1 },
   { type: "marketplace", title: "Sold: iPhone Charger", time: "5h ago", amount: "₦2,000", id: 2 },
   { type: "task", title: "Study for Midterm Exam", time: "Yesterday", status: "pending", id: 3 },
-  { type: "hustle", title: "Delivered Food Order", time: "Yesterday", amount: "₦1,500", id: 4 },
+  { type: "hustle", title: "Delivered Food Order", time: "Yesterday", amount: "₦1,500", id: 4 }
 ];
 
 const HomeScreen = (props: PageProps) => {
   return (
     <AppLayout>
-      <ScrollView contentContainerStyle={{ gap: 30 }}>
+      <ScrollView contentContainerStyle={{ gap: 30, backgroundColor: "#efefef" }}>
         <HeaderCard />
         <View style={HomeScreenStyles.container}>
           <View style={{ marginTop: -58, gap: 12 }}>
@@ -62,10 +62,12 @@ const HomeScreen = (props: PageProps) => {
         <View style={HomeScreenStyles.container}>
           <Text style={HomeScreenStyles.sectionTitle}>Recent Activity</Text>
 
-          <FlatList data={recentActivity} renderItem={(data) => {
-            return <RecentActivityCard activity={data.item} />;
-          }} />
 
+          <FlatList contentContainerStyle={{ backgroundColor: "white", marginBottom: 20, borderRadius: 10, overflow: "hidden" }} data={recentActivity} renderItem={(data) => {
+            return <RecentActivityCard activity={data.item} />;
+          }} ItemSeparatorComponent={() => {
+            return <View style={{ height: 1, backgroundColor: "#eee" }}></View>
+          }} />
         </View>
       </ScrollView>
 
@@ -83,67 +85,58 @@ const RecentActivityCard = (props: any) => {
     case "hustle":
       return <HustleActivityCard activity={props.activity} />;
     default:
-      return <Text>Not Handle</Text>;
+      return <Text style={{textAlign: "center", padding: 10}}>Not Handle</Text>;
   }
 }
 
 
 const HustleActivityCard = (props: any) => {
   const activity = props.activity;
-  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-    <View style={{ backgroundColor: "#bbdefb", padding: 8, borderRadius: 8 }}>
-      <CheckSquareIcon color={COLORS.primary_dark} size={18} />
+  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10, backgroundColor: "white", padding: 15 }}>
+    <View style={{ backgroundColor: "#fae4fe", padding: 8, borderRadius: 8 }}>
+      <DollarSignIcon color={COLORS.purple} size={18} />
     </View>
     <View style={{ flex: 1, gap: 2 }}>
-      <Text style={{ fontSize: 14 }}>{activity.title}</Text>
+      <Text style={{ fontSize: 14, fontWeight: 500 }}>{activity.title}</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
         <ClockIcon size={12} color={COLORS.grey} />
         <Text style={{ fontSize: 12 }}>{activity.time}</Text>
       </View>
-
     </View>
-    {activity.status == "completed" &&
-      <View style={{ backgroundColor: "#d0fcd2", paddingVertical: 2, paddingHorizontal: 6, borderRadius: 10, alignSelf: "flex-start" }}>
-        <Text style={{ fontSize: 12, color: COLORS.green }}>Done</Text>
-      </View>}
+    <Text style={{ fontSize: 14, fontWeight: 500, alignSelf: "flex-start", color: COLORS.green }}>{activity.amount}</Text>
   </View>;
 }
 
 
 const ListingActivityCard = (props: any) => {
   const activity = props.activity;
-  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-    <View style={{ backgroundColor: "#bbdefb", padding: 8, borderRadius: 8 }}>
-      <CheckSquareIcon color={COLORS.primary_dark} size={18} />
+  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10, backgroundColor: "white", padding: 15 }}>
+    <View style={{ backgroundColor: "#e3fee4", padding: 8, borderRadius: 8 }}>
+      <ShoppingBagIcon color={COLORS.green} size={18} />
     </View>
     <View style={{ flex: 1, gap: 2 }}>
-      <Text style={{ fontSize: 14 }}>{activity.title}</Text>
+      <Text style={{ fontSize: 14, fontWeight: 500 }}>{activity.title}</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
         <ClockIcon size={12} color={COLORS.grey} />
         <Text style={{ fontSize: 12 }}>{activity.time}</Text>
       </View>
-
     </View>
-    {activity.status == "completed" &&
-      <View style={{ backgroundColor: "#d0fcd2", paddingVertical: 2, paddingHorizontal: 6, borderRadius: 10, alignSelf: "flex-start" }}>
-        <Text style={{ fontSize: 12, color: COLORS.green }}>Done</Text>
-      </View>}
+    <Text style={{ fontSize: 14, fontWeight: 500, alignSelf: "flex-start", color: COLORS.green }}>{activity.amount}</Text>
   </View>;
 }
 
 const TaskActivityCard = (props: any) => {
   const activity = props.activity;
-  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+  return <View style={{ flexDirection: "row", alignItems: "center", gap: 10, backgroundColor: "white", padding: 15 }}>
     <View style={{ backgroundColor: "#bbdefb", padding: 8, borderRadius: 8 }}>
       <CheckSquareIcon color={COLORS.primary_dark} size={18} />
     </View>
     <View style={{ flex: 1, gap: 2 }}>
-      <Text style={{ fontSize: 14 }}>{activity.title}</Text>
+      <Text style={{ fontSize: 14, fontWeight: 500 }}>{activity.title}</Text>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
         <ClockIcon size={12} color={COLORS.grey} />
         <Text style={{ fontSize: 12 }}>{activity.time}</Text>
       </View>
-
     </View>
     {activity.status == "completed" &&
       <View style={{ backgroundColor: "#d0fcd2", paddingVertical: 2, paddingHorizontal: 6, borderRadius: 10, alignSelf: "flex-start" }}>
