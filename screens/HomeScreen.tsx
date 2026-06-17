@@ -62,12 +62,23 @@ const HomeScreen = () => {
         <View style={HomeScreenStyles.container}>
           <Text style={HomeScreenStyles.sectionTitle}>Recent Activity</Text>
 
+          <View style={{ backgroundColor: "white", marginBottom: 20, borderRadius: 10, overflow: "hidden" }}>
+            {
+              recentActivity.map((value, index) => (
+                <View key={index}>
+                  <RecentActivityCard activity={value} />
+                  {index != recentActivity.length - 1 &&
+                    <View style={{ height: 1.5, backgroundColor: "#eee" }}></View>}
+                </View>
+              ))
+            }
+          </View>
 
-          <FlatList contentContainerStyle={{ backgroundColor: "white", marginBottom: 20, borderRadius: 10, overflow: "hidden" }} data={recentActivity} renderItem={(data) => {
+          {/* <FlatList contentContainerStyle={{ backgroundColor: "white", marginBottom: 20, borderRadius: 10, overflow: "hidden" }} data={recentActivity} renderItem={(data) => {
             return <RecentActivityCard activity={data.item} />;
           }} ItemSeparatorComponent={() => {
             return <View style={{ height: 1, backgroundColor: "#eee" }}></View>
-          }} />
+          }} /> */}
         </View>
       </ScrollView>
 
@@ -85,7 +96,7 @@ const RecentActivityCard = (props: any) => {
     case "hustle":
       return <HustleActivityCard activity={props.activity} />;
     default:
-      return <Text style={{textAlign: "center", padding: 10}}>Not Handle</Text>;
+      return <Text style={{ textAlign: "center", padding: 10 }}>Not Handle</Text>;
   }
 }
 

@@ -6,6 +6,7 @@ import HomeScreen from "./screens/HomeScreen";
 import { StatusBar } from "expo-status-bar";
 import { TabBar } from "./components/tab-bar";
 import NavigationProvider, { useNavigation } from "./contexts/navigation";
+import { TasksScreen } from "./screens/TasksScreen";
 
 export type PageProps = {
   navigate: (page: string) => () => void;
@@ -35,9 +36,7 @@ export function App() {
     case "home":
       return <HomeScreen />;
     case "tasks":
-      return <AppLayout>
-        <Text>Welcome to Hell!</Text>
-      </AppLayout>
+      return <TasksScreen/>;
     default:
       return <AppLayout withoutTab={true}>
         <Text>404 - Not Found</Text>
