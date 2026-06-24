@@ -4,25 +4,29 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BriefcaseIcon, CheckSquareIcon, ClockIcon, DollarSignIcon, PackageIcon, PlusIcon, ShoppingBagIcon, TimerIcon, TrendingUp } from 'lucide-react-native';
 import { WelcomeScreenStyles } from '../styles';
 import { COLORS } from '../constants/colors';
+import { useNavigation } from '../contexts/navigation';
 
 const summaryData = [
   {
     icon: CheckSquareIcon,
     title: "Today's Tasks",
     value: "8",
-    color: COLORS.primary
+    color: COLORS.primary,
+    page: "tasks"
   },
   {
     icon: PackageIcon,
     title: "Active Listings",
     value: "3",
-    color: COLORS.green
+    color: COLORS.green,
+    page: "marketplace"
   },
   {
     icon: TrendingUp,
     title: "Hustle Earnings",
     value: "N12,500",
-    color: COLORS.purple
+    color: COLORS.purple,
+    page: "hustle"
   },
 ];
 
@@ -34,6 +38,9 @@ const recentActivity = [
 ];
 
 const HomeScreen = () => {
+
+  const {handleNavigate} = useNavigation();
+
   return (
     <AppLayout>
       <ScrollView contentContainerStyle={{ gap: 30, backgroundColor: "#efefef" }}>
@@ -53,7 +60,7 @@ const HomeScreen = () => {
               <Text style={HomeScreenStyles.quickActionText}>Add Task</Text>
             </Pressable> */}
 
-            <QuickActionCard title="Add Task" icon={PlusIcon} color={COLORS.primary} />
+            <QuickActionCard title="Add Task" onPress={handleNavigate('tasks.create')} icon={PlusIcon} color={COLORS.primary} />
             <QuickActionCard title="Add Listing" icon={ShoppingBagIcon} color={COLORS.green} />
             <QuickActionCard title="Add Hustle Job" icon={BriefcaseIcon} color={COLORS.purple} />
           </View>
@@ -157,14 +164,15 @@ const TaskActivityCard = (props: any) => {
 }
 
 const QuickActionCard = (props: any) => {
-  return <Pressable style={[HomeScreenStyles.quickAction, { backgroundColor: props.color }]}>
+  return <Pressable style={[HomeScreenStyles.quickAction, { backgroundColor: props.color }]} onPress={props.onPress}>
     <props.icon color={HomeScreenStyles.quickActionText.color} />
     <Text style={HomeScreenStyles.quickActionText}>{props.title}</Text>
   </Pressable>;
 }
 
 const SummaryCard = (props: any) => {
-  return (<Pressable style={{ flexDirection: "row", gap: 16, alignItems: "center", backgroundColor: "white", padding: 16, borderRadius: 16, boxShadow: "2px 4px 10px rgba(0,0,0,0.2)" }}>
+  const {handleNavigate} = useNavigation();
+  return (<Pressable style={{ flexDirection: "row", gap: 16, alignItems: "center", backgroundColor: "white", padding: 16, borderRadius: 16, boxShadow: "2px 4px 10px rgba(0,0,0,0.2)" }} onPress={handleNavigate(props.page)}>
     <View style={{ backgroundColor: props.color, padding: 10, borderRadius: 8 }}>
       <props.icon color={"white"} />
     </View>

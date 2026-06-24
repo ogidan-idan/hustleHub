@@ -6,7 +6,8 @@ import HomeScreen from "./screens/HomeScreen";
 import { StatusBar } from "expo-status-bar";
 import { TabBar } from "./components/tab-bar";
 import NavigationProvider, { useNavigation } from "./contexts/navigation";
-import { TasksScreen } from "./screens/TasksScreen";
+import { TasksScreen } from "./screens/tasks";
+import TaskCreateScreen from "./screens/tasks/create";
 
 export type PageProps = {
   navigate: (page: string) => () => void;
@@ -29,7 +30,7 @@ export function AppLayout(props: AppLayoutProps) {
 }
 
 export function App() {
-  const { currentPage, handleNavigate } = useNavigation();
+  const { currentPage, goBack } = useNavigation();
   switch (currentPage) {
     case "welcome":
       return <WelcomeScreen />;
@@ -37,10 +38,12 @@ export function App() {
       return <HomeScreen />;
     case "tasks":
       return <TasksScreen/>;
+    case "tasks.create":
+       return <TaskCreateScreen/>;
     default:
       return <AppLayout withoutTab={true}>
         <Text>404 - Not Found</Text>
-        <Button title="Go Home" onPress={handleNavigate("welcome")} />
+        <Button title="Go Back" onPress={goBack()} />
       </AppLayout>;
   }
 }

@@ -26,7 +26,8 @@ export const TasksScreenStyle = StyleSheet.create({
         alignItems: "flex-start",
         gap: 16,
         backgroundColor: "white",
-        borderRadius: 20
+        borderRadius: 20,
+        boxShadow: "2px 2px 4px rgba(0,0,0,0.1)",
     },
     taskBody: {
         gap: 10

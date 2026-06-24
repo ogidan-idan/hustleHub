@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
-import { AppLayout } from '../App'
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
-import { Task } from '../type';
-import { TasksScreenHeader } from '../components/task-header';
-import { TaskCardCheckable } from '../components/task-checkable';
-import { PackageOpenIcon } from 'lucide-react-native';
-import { COLORS } from '../constants/colors';
+import { AppLayout } from '../../App'
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Task } from '../../type';
+import { TasksScreenHeader } from '../../components/task-header';
+import { TaskCardCheckable } from '../../components/task-checkable';
+import { PackageOpenIcon, PlusIcon } from 'lucide-react-native';
+import { COLORS } from '../../constants/colors';
+import { Button } from '../../components/button';
+import { roundedIconBtn, secondary } from '../../styles/button';
+import { tasks } from '../../data/tasks';
+import { useNavigation } from '../../contexts/navigation';
 
 const API_BASE_URL = "https://api.mockfly.dev/mocks/1349e1e4-4b57-4ba3-bb91-6bd55f140a7d";
 export const TasksScreen = () => {
-    const [taskList, setTaskList] = useState<Task[]>([]);
+    const {handleNavigate} = useNavigation();
+    const [taskList, setTaskList] = useState<Task[]>(tasks);
 
     const [taskLoading, setTaskLoading] = useState<boolean>(false);
 
@@ -39,7 +44,7 @@ export const TasksScreen = () => {
                 }
             });
 
-            if(response.ok){
+            if (response.ok) {
                 // fill taskList state
                 const data: Task[] = await response.json();
                 setTaskList(data);
@@ -52,7 +57,7 @@ export const TasksScreen = () => {
     }
 
     useEffect(() => {
-        fetchTaskList();
+        // fetchTaskList();
     }, []);
 
     return (
@@ -72,10 +77,14 @@ export const TasksScreen = () => {
                                 <Text style={{ fontSize: 36 }}>No tasks found</Text>
                             </View>
                         ) :
-                            taskList.map((task, index) => {
+                        <>
+                           { taskList.map((task, index) => {
                                 return (<TaskCardCheckable task={task} handlePress={handleCheck} key={index} />);
-                            })
+                            })}
+                            <View style={{height: 300, width: "100%"}}></View>
+                        </>
                 }
+                <Button onPress={handleNavigate('tasks.create')} title={<PlusIcon size={32} color={"white"} />} variant={roundedIconBtn} />
             </ScrollView>
         </AppLayout>
     );

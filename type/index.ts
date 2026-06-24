@@ -1,3 +1,4 @@
+import { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export type Task = {
     id: number;
@@ -11,4 +12,15 @@ export type Task = {
 export type TaskCardCheckableProps = {
     task: Task,
     handlePress: (taskId: number) => () => void;
+}
+
+export type ButtonProps = {
+    title: React.ReactNode;
+    style?: StyleProp<ViewStyle>;
+    textStyle?: StyleProp<TextStyle>;
+    variant: {
+        container: StyleProp<ViewStyle>;
+        text: StyleProp<TextStyle>;
+    },
+    onPress?: ((event: GestureResponderEvent) => void) | undefined;
 }

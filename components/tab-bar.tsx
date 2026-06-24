@@ -10,7 +10,7 @@ export const TabBar = () => {
     const { currentPage, handleNavigate } = useNavigation();
 
     function isActive(tab: Tab) {
-        return tab == currentPage;
+        return currentPage.startsWith(tab);
     }
 
     return (
