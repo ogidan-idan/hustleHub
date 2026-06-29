@@ -6,8 +6,7 @@ import { CalendarIcon } from 'lucide-react-native';
 
 const TODAY = new Date();
 
-export default function DateInput({ min = TODAY }: { min?: Date }) {
-    const [date, setDate] = useState(min);
+export default function DateInput({ onChange: setDate, min = TODAY, value: date = TODAY, readOnly = false }: { min?: Date, value?: Date, onChange: (date: Date) => void;readOnly?:boolean }) {
     const [dateFilled, setDateFilled] = useState(false);
     const [show, setShow] = useState(false);
 
@@ -17,11 +16,12 @@ export default function DateInput({ min = TODAY }: { min?: Date }) {
     const handleSelection = (event: DateTimePickerChangeEvent, selectedDate: Date) => {
         setDate(selectedDate)
         setDateFilled(true);
+        setShow(false);
     }
 
     return (
         <>
-            <TouchableOpacity onPress={showDatepicker} style={TextInputStyle.date}>
+            <TouchableOpacity disabled={readOnly} onPress={showDatepicker} style={TextInputStyle.date}>
                 <Text style={TextInputStyle.dateText}>
                     {dateFilled ? date.toLocaleDateString() : "mm/dd/yyyy"}
                 </Text>

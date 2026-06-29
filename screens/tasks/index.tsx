@@ -10,6 +10,7 @@ import { Button } from '../../components/button';
 import { roundedIconBtn, secondary } from '../../styles/button';
 import { tasks } from '../../data/tasks';
 import { useNavigation } from '../../contexts/navigation';
+import { getTasks } from '../../services/task-service';
 
 const API_BASE_URL = "https://api.mockfly.dev/mocks/1349e1e4-4b57-4ba3-bb91-6bd55f140a7d";
 export const TasksScreen = () => {
@@ -37,18 +38,20 @@ export const TasksScreen = () => {
         try {
             setTaskLoading(true);
 
-            const response = await fetch(API_BASE_URL + "/tasks", {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json"
-                }
-            });
+            const savedTasks = await getTasks();
+            setTaskList(savedTasks);
+            // const response = await fetch(API_BASE_URL + "/tasks", {
+            //     method: "GET",
+            //     headers: {
+            //         "Accept": "application/json"
+            //     }
+            // });
 
-            if (response.ok) {
-                // fill taskList state
-                const data: Task[] = await response.json();
-                setTaskList(data);
-            }
+            // if (response.ok) {
+            //     // fill taskList state
+            //     const data: Task[] = await response.json();
+            //     setTaskList(data);
+            // }
         } catch (error) {
             console.log(error);
         } finally {
@@ -57,7 +60,7 @@ export const TasksScreen = () => {
     }
 
     useEffect(() => {
-        // fetchTaskList();
+        fetchTaskList();
     }, []);
 
     return (
